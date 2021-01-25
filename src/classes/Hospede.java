@@ -1,95 +1,90 @@
 package classes;
 
-
-import java.util.ArrayList;
-
 public class Hospede {
     
-    private String nome, cpf;
-    private int dia, mes, ano, quant_estadia, num_quartos;
-    private double preco_total;     //restante a ser pago ou total a ser pago caso primeira_parcela for falso;
+    private String nome;
+    private int quant_estadia;
+    private int data[]; 
+    private double preco_total;    ;
     private boolean cafe_manha;
-    private boolean check_in;       //se a primeira parcela foi paga   
-    private final ArrayList<Quarto> quartos;
-        
-    public Hospede(String nome, String cpf, int dia, int mes, int ano, int quant_estadia,int num_quartos, double preco_total, boolean cafe_manha, boolean check_in, ArrayList<Quarto> quartos){
+    private boolean check_in;     
+    private Quarto quarto;
+    
+    //Construtor da classe
+    public Hospede(String nome, int[] data, int quant_estadia){
     	this.nome = nome;
-        this.cpf = cpf;
-        this.dia = dia;
-	this.mes = mes;
-	this.ano = ano;
+        this.data = data;
 	this.quant_estadia = quant_estadia;
-        this.num_quartos = num_quartos;
-	this.preco_total = preco_total;
-	this.cafe_manha = cafe_manha;
-	this.check_in = check_in;
-        this.quartos = quartos;
     }
 
-
-    public void setNum_quartos(int num_quartos) {
-        this.num_quartos = num_quartos;
+    //Metodos basicos para inserir e ter acesso aos atributos da classe
+    public Quarto getQuarto() {
+        return quarto;
     }
-
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
+    }   
     public void setNome(String nome){
-		this.nome = nome;
-	}
-    
-    public void setDia(int dia){
-		this.dia = dia;
-	}
-
-    public void setMes(int mes){
-		this.mes = mes;
-	}
-
-    public void setAno(int ano){
-		this.ano = ano;
-	}
-
+	this.nome = nome;
+    }    
     public void setQuant_estadia(int quant_estadia){
-		this.quant_estadia = quant_estadia;
-	}
-
-    public void setPreco_total(double preco_total){
-		this.preco_total = preco_total;
-	}
-
+	this.quant_estadia = quant_estadia;
+    }
     public void setCafe_manha(boolean cafe_manha){
-		this.cafe_manha = cafe_manha;
-	}
-
+	this.cafe_manha = cafe_manha;
+    }
     public void setCheck_in(boolean check_in){
-		this.check_in = check_in;
-	}
-
+	this.check_in = check_in;
+    }
+    public int[] getData() {
+        return data;
+    }
+    public void setData(int[] data) {
+        this.data = data;
+    }    
     public String getNome(){
-		return this.nome;
-	}
-    
-    public int getNum_quartos() {
-        return num_quartos;
+	return this.nome;
+    }        
+    public int getQuant_estadia(){
+		
+        return this.quant_estadia;
+    }
+    public boolean getCafe_manha(){
+	return this.cafe_manha;
+    }
+    public boolean getCheck_in(){
+	return this.check_in;
     }
     
-    public int getQuant_estadia(){
-		return this.quant_estadia;
-	}
+    //aqui entra os metodos de aplicação do programa.
+    
+    /*Nesse metodo, é verificado se determinado quarto, dado seu numero de identificação esta contido na lista de quartos
+    do hospede, caso esteja, retorna a posiçao na lista, senao, retorna -1, mostrando que o quarto nao esta na lista do hospede*/
+    public boolean pertenceQuarto(int num){
 
-    public double getPreco_total(){
-		return this.preco_total;
-	}
+            if(quarto.numero==num){
+                return true;
+            }
 
-    public boolean getCafe_manha(){
-		return this.cafe_manha;
-	}
+        return false;
+    } 
 
-    public boolean getCheck_in(){
-		return this.check_in;
-	}
-
-    public int[] getData(){
-		int data[] = {this.dia, this.mes, this.ano};
-		return data;
-	}
+    //Nesse metodo, as informações sobre o Hospede sao retornadas em forma de String
+    public String infoHospede(){
+        String info = "";
+        info += "Nome: " + this.nome + "\n";
+        info += "Cafe da manha: " + this.cafe_manha + "\n";
+        info += "Data de Hospedagem:" + this.data[0] +"/"+ this.data[1] +"/"+this.data[2]+"\n";
+        info += "Check in: " + this.check_in;
+        return info;
+    }
+    
+    //Nessa é calculado todo o custo da estadia do hospede, considerando todos os quartos em seu nome
+    public double valorTotal(){
         
+        if(cafe_manha){
+            preco_total += 20;
+        }
+        return preco_total;
+    }
 }
